@@ -50,7 +50,7 @@ train_generator = train_datagen.flow_from_directory(
     # Since we use binary_crossentropy loss, we need binary labels
     class_mode='binary')
 
-history = model.fit(train_generator, steps_per_epoch=8, epochs=20, verbose=1)
+history = model.fit(train_generator, steps_per_epoch=8, epochs=10, verbose=1)
 
 model.save('saved_model\\my_model')
 

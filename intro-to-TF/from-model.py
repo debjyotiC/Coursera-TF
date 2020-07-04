@@ -11,7 +11,7 @@ load_model = tf.keras.models.load_model('saved_model\\my_model')
 load_model.summary()
 
 # predicting images
-path = 'content\\boy-2.jpg'
+path = 'content\\animal.jpg'
 img = image.load_img(path, target_size=(300, 300))
 x = image.img_to_array(img)
 x = np.expand_dims(x, axis=0)
