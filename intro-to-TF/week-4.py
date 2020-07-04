@@ -31,6 +31,7 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Dense(1024, activation='relu'),
     # Only 1 output neuron. It will contain a value from 0-1 where 0 for 1 class ('horses') and 1 for the other (
     # 'humans')
+    tf.keras.layers.Dense(512, activation='relu'),
     tf.keras.layers.Dense(1, activation='sigmoid')
 ])
 
@@ -50,6 +51,8 @@ train_generator = train_datagen.flow_from_directory(
     class_mode='binary')
 
 history = model.fit(train_generator, steps_per_epoch=8, epochs=10, verbose=1)
+
+model.save('C:\\Users\\Deb\\PycharmProjects\\Coursera-TF\\intro-to-TF\\saved_model\\my_model')
 
 # predicting images
 path = 'C:\\Users\\Deb\\PycharmProjects\\Coursera-TF\\intro-to-TF\\content\\boy.jpg'
