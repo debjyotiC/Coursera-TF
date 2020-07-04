@@ -3,7 +3,7 @@ import tensorflow as tf
 import numpy as np
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 from keras.preprocessing import image
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
 
 load_model = tf.keras.models.load_model('C:\\Users\\Deb\\PycharmProjects\\Coursera-TF\\'
                                        'intro-to-TF\\saved_model\\my_model')
