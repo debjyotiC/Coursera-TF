@@ -1,8 +1,6 @@
 import os
 import tensorflow as tf
 import numpy as np
-
-os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 from keras.preprocessing import image
 
 load_model = tf.keras.models.load_model('saved_model\\my_model')
