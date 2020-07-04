@@ -41,8 +41,9 @@ model.compile(loss='binary_crossentropy', optimizer=RMSprop(lr=0.001), metrics=[
 train_datagen = ImageDataGenerator(rescale=1 / 255)
 
 # Flow training images in batches of 128 using train_datagen generator
+# This is the source directory for training images
 train_generator = train_datagen.flow_from_directory(
-    'horse-or-human',  # This is the source directory for training images
+    'C:\\Users\\Deb\\PycharmProjects\\Coursera-TF\\intro-to-TF\\horse-or-human',
     target_size=(300, 300),  # All images will be resized to 150x150
     batch_size=128,
     # Since we use binary_crossentropy loss, we need binary labels
@@ -51,7 +52,7 @@ train_generator = train_datagen.flow_from_directory(
 history = model.fit(train_generator, steps_per_epoch=8, epochs=10, verbose=1)
 
 # predicting images
-path = 'content\\beautiful-1274056_640.jpg'
+path = 'C:\\Users\\Deb\\PycharmProjects\\Coursera-TF\\intro-to-TF\\content\\boy.jpg'
 img = image.load_img(path, target_size=(300, 300))
 x = image.img_to_array(img)
 x = np.expand_dims(x, axis=0)
