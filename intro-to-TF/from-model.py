@@ -1,18 +1,17 @@
 import os
 import tensorflow as tf
 import numpy as np
+
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 from keras.preprocessing import image
 
-
-load_model = tf.keras.models.load_model('C:\\Users\\Deb\\PycharmProjects\\Coursera-TF\\'
-                                       'intro-to-TF\\saved_model\\my_model')
+load_model = tf.keras.models.load_model('saved_model\\my_model')
 
 # Check its architecture
 load_model.summary()
 
 # predicting images
-path = 'C:\\Users\\Deb\\PycharmProjects\\Coursera-TF\\intro-to-TF\\content\\animal.jpg'
+path = 'content\\animal.jpg'
 img = image.load_img(path, target_size=(300, 300))
 x = image.img_to_array(img)
 x = np.expand_dims(x, axis=0)
