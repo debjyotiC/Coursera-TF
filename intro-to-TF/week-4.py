@@ -31,7 +31,6 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Dense(1024, activation='relu'),
     # Only 1 output neuron. It will contain a value from 0-1 where 0 for 1 class ('horses') and 1 for the other (
     # 'humans')
-    tf.keras.layers.Dense(512, activation='relu'),
     tf.keras.layers.Dense(1, activation='sigmoid')
 ])
 
@@ -55,7 +54,7 @@ history = model.fit(train_generator, steps_per_epoch=8, epochs=10, verbose=1)
 model.save('saved_model\\my_model')
 
 # predicting images
-path = 'content\\boy.jpg'
+path = 'content\\girl.jpg'
 img = image.load_img(path, target_size=(300, 300))
 x = image.img_to_array(img)
 x = np.expand_dims(x, axis=0)
