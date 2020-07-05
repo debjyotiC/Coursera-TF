@@ -37,18 +37,18 @@ def image_upload():
 
 @app.route('/classify', methods=['GET', 'POST'])
 def image_classify():
-    from_path = session['path']
-    load_model = tf.keras.models.load_model('saved_model\\my_model')
-    img = image.load_img('static\\uploaded_images\\'+from_path, target_size=(300, 300))
-    x = image.img_to_array(img)
-    x = np.expand_dims(x, axis=0)
-    images = np.vstack([x])
-    classes = load_model.predict(images, batch_size=10)
-    session['path'] = 'None'
-    if classes[0] > 0.5:
-        return render_template('index.html', uploaded_image='default-image.png', classification="is a human")
-    else:
-        return render_template('index.html', uploaded_image='default-image.png', classification="is a horse")
+    if request.method == 'POST':
+        from_path = session['path']
+        load_model = tf.keras.models.load_model('saved_model\\my_model')
+        img = image.load_img('static\\uploaded_images\\'+from_path, target_size=(300, 300))
+        x = image.img_to_array(img)
+        x = np.expand_dims(x, axis=0)
+        images = np.vstack([x])
+        classes = load_model.predict(images, batch_size=10)
+        if classes[0] > 0.5:
+            return render_template('index.html', uploaded_image=from_path, classification="uploaded image is of a human")
+        else:
+            return render_template('index.html', uploaded_image=from_path, classification="uploaded image is of a horse")
 
 
 if __name__ == '__main__':
