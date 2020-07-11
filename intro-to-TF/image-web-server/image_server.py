@@ -16,7 +16,7 @@ app.secret_key = os.urandom(24)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-UPLOAD_DIR = 'static\\uploaded_images'
+UPLOAD_DIR = 'static/uploaded_images'
 UPLOAD_FOLDER = os.path.join(APP_ROOT, UPLOAD_DIR)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -52,8 +52,8 @@ def image_upload():
 def image_classify():
     if request.method == 'POST':
         from_path = session['path']
-        load_model = tf.keras.models.load_model('saved_model\\my_model')
-        img = image.load_img('static\\uploaded_images\\' + from_path, target_size=(300, 300))
+        load_model = tf.keras.models.load_model('saved_model/my_model')
+        img = image.load_img('static/uploaded_images/' + from_path, target_size=(300, 300))
         x = image.img_to_array(img)
         x = np.expand_dims(x, axis=0)
         images = np.vstack([x])
@@ -67,4 +67,4 @@ def image_classify():
 
 
 if __name__ == '__main__':
-    app.run(host='192.168.0.106', debug=True)
+    app.run(debug=True)

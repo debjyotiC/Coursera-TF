@@ -51,10 +51,19 @@ train_generator = train_datagen.flow_from_directory(
 
 history = model.fit(train_generator, steps_per_epoch=8, epochs=10, verbose=1)
 
-model.save('saved_model\\my_model')
+model.save('saved_model/my_model')
+# Convert the model.
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+tflite_model = converter.convert()
+
+# Save the TF Lite model.
+with tf.io.gfile.GFile('model.tflite', 'wb') as f:
+  f.write(tflite_model)
+
+
 
 # predicting images
-path = 'content\\girl.jpg'
+path = 'content/girl.jpg'
 img = image.load_img(path, target_size=(300, 300))
 x = image.img_to_array(img)
 x = np.expand_dims(x, axis=0)
