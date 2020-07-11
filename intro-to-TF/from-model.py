@@ -18,7 +18,7 @@ x = np.expand_dims(x, axis=0)
 
 images = np.vstack([x])
 classes = load_model.predict(images, batch_size=10)
-print(classes[0])
+print(classes)
 if classes[0] > 0.5:
     print("is a human")
 else:

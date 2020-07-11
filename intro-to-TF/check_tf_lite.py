@@ -1,22 +1,30 @@
 import numpy as np
 import tensorflow as tf
+import numpy as np
+from keras.preprocessing import image
 
 # Load TFLite model and allocate tensors.
-interpreter = tf.lite.Interpreter(model_path="saved_model/tflite_model/converted_model.tflite")
+interpreter = tf.lite.Interpreter(model_path="saved_model\\tflite_model\\converted_model.tflite")
 interpreter.allocate_tensors()
 
 # Get input and output tensors.
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
-# Test model on random input data.
-input_shape = input_details[0]['shape']
-input_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
-interpreter.set_tensor(input_details[0]['index'], input_data)
+# predicting images
+path = 'content/girl.jpg'
+img = image.load_img(path, target_size=(300, 300))
+x = image.img_to_array(img)
+x = np.expand_dims(x, axis=0)
+
+images = np.vstack([x])
+interpreter.set_tensor(input_details[0]['index'], images)
 
 interpreter.invoke()
 
-# The function `get_tensor()` returns a copy of the tensor data.
-# Use `tensor()` in order to get a pointer to the tensor.
 output_data = interpreter.get_tensor(output_details[0]['index'])
-print(output_data)
+
+if output_data[0] > 0.5:
+    print("is a human")
+else:
+    print("is a horse")
