@@ -52,12 +52,19 @@ def image_upload():
 def image_classify():
     if request.method == 'POST':
         from_path = session['path']
-        load_model = tf.keras.models.load_model('saved_model/my_model')
+        # load_model = tf.keras.models.load_model('saved_model/my_model')
+        load_model = tf.lite.Interpreter(model_path="saved_model/tflite_model/converted_model.tflite")
+        load_model.allocate_tensors()
+        input_details = load_model.get_input_details()
+        output_details = load_model.get_output_details()
         img = image.load_img('static/uploaded_images/' + from_path, target_size=(300, 300))
         x = image.img_to_array(img)
         x = np.expand_dims(x, axis=0)
         images = np.vstack([x])
-        classes = load_model.predict(images, batch_size=10)
+        # classes = load_model.predict(images, batch_size=10)
+        load_model.set_tensor(input_details[0]['index'], images)
+        load_model.invoke()
+        classes = load_model.get_tensor(output_details[0]['index'])
         if classes[0] > 0.5:
             return render_template('index.html', uploaded_image=from_path,
                                    classification="uploaded image is of a human")
