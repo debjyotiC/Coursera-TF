@@ -31,11 +31,12 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Dense(1024, activation='relu'),
     # Only 1 output neuron. It will contain a value from 0-1 where 0 for 1 class ('horses') and 1 for the other (
     # 'humans')
+    tf.keras.layers.Dense(512, activation='relu'),
     tf.keras.layers.Dense(1, activation='sigmoid')
 ])
 
 model.summary()
-model.compile(loss='binary_crossentropy', optimizer=RMSprop(lr=0.001), metrics=['accuracy'])
+model.compile(loss='binary_crossentropy', optimizer=tf.optimizers.Adam(0.001), metrics=['accuracy'])
 
 # All images will be rescaled by 1./255
 train_datagen = ImageDataGenerator(rescale=1 / 255)
@@ -51,16 +52,7 @@ train_generator = train_datagen.flow_from_directory(
 
 history = model.fit(train_generator, steps_per_epoch=8, epochs=10, verbose=1)
 
-model.save('saved_model/my_model')
-# Convert the model.
-converter = tf.lite.TFLiteConverter.from_keras_model(model)
-tflite_model = converter.convert()
-
-# Save the TF Lite model.
-with tf.io.gfile.GFile('model.tflite', 'wb') as f:
-  f.write(tflite_model)
-
-
+model.save('saved_model/tf_model')
 
 # predicting images
 path = 'content/girl.jpg'
