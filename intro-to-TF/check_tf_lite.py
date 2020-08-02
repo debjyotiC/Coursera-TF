@@ -1,4 +1,3 @@
-import numpy as np
 import tensorflow as tf
 import numpy as np
 from keras.preprocessing import image
