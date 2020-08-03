@@ -28,3 +28,5 @@ if output_data[0] > 0.5:
     print("is a human")
 else:
     print("is a horse")
+
+print(input_details)
