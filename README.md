@@ -1,2 +1,2 @@
 # Coursera-TF
-This repo cointains code from Coursera TensorFlow specilization.
+This repo cointains code from Coursera TensorFlow specialization.
